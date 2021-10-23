@@ -171,19 +171,32 @@ const updateText = (updateButton) => {
 const showInfo = (infoButton) => {
     let text = infoButton.parentElement.parentElement.childNodes[1].innerText;
     let data = JSON.parse(localStorage.getItem(text))
-    alert(
+    let deleteTask = confirm(
         `
         Text: ${text}
         Created at: ${data.createdAt}
         Last update: ${data.updatedAt}
-        Process: ${data.process}`
+        Process: ${data.process}
+        
+        Do you want to delete the task?
+        `
     )
+    if(deleteTask) {
+        localStorage.removeItem(text)
+        location.reload()
+    }
 }
 
 
 const isExist = (textToControl) => localStorage.getItem(textToControl) ? true : false;
 
-    
+const deleteAll = () =>{
+    let deleteAllTasks = confirm("Do you want to delete all tasks");
+    if(deleteAllTasks){
+        localStorage.clear(); 
+        location.reload() 
+    }
+}
 
 // Get All Data From Local Storage Immediately
 (() => {
